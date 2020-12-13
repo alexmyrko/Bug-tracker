@@ -1,6 +1,6 @@
-import java.io.BufferedReader;
+package bugTracker;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class ReadHelper {
     public static String readString() {
