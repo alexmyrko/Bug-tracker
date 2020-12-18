@@ -1,7 +1,6 @@
-package bugTracker;
+package com.bugtracker;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ReadHelper {

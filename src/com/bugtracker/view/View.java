@@ -1,9 +1,7 @@
-package bugTracker.view;
+package com.bugtracker.view;
 
-import bugTracker.BugTracker;
-import bugTracker.Operation;
-import bugTracker.ReadHelper;
-import bugTracker.ticket.User;
+import com.bugtracker.BugTracker;
+import com.bugtracker.User;
 
 public class View {
     private BugTracker bugTracker;

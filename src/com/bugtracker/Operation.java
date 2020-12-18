@@ -1,4 +1,4 @@
-package bugTracker;
+package com.bugtracker;
 
 public enum Operation {
     LOGIN, REGISTER, CREATE, EDIT, VIEW, EXIT;
