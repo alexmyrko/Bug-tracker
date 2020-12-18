@@ -1,6 +1,6 @@
 package com.bugtracker;
 
-import com.bugtracker.ticket.Ticket;
+import com.bugtracker.model.Ticket;
 
 import java.io.IOException;
 import java.util.HashMap;
