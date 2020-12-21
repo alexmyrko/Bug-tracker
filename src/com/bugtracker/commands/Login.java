@@ -1,5 +1,5 @@
 package com.bugtracker.commands;
 
-public interface Command {
-    void execute();
+public interface Login {
+    void  execute();
 }

@@ -1,5 +1,7 @@
 package com.bugtracker;
 
+import com.bugtracker.commands.ExitCommand;
+import com.bugtracker.commands.LoginCommand;
 import com.bugtracker.model.Ticket;
 
 import java.io.IOException;
@@ -11,6 +13,10 @@ public class BugTracker {
     Map<Integer, Ticket> tickets = new HashMap<>();
     public static void main(String[] args) throws IOException {
         BugTracker tracker = new BugTracker();
-
+        Operation currentOperation = Operation.getLoginOperationByOrdinal();
+        System.out.println(currentOperation);
+        if (currentOperation.equals(Operation.EXIT)) {
+            new ExitCommand().execute();
+        }
     }
 }

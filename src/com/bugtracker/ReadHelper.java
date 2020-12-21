@@ -1,14 +1,20 @@
 package com.bugtracker;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ReadHelper {
+    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public static String readString() {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));){
-            return reader.readLine();
+        String text = null;
+        try {
+            text = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return text;
     }
 
     public static int readNumber(){
