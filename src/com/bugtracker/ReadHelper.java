@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class ReadHelper {
-    private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static BufferedReader reader;
 
     public static String readString() {
-        return reader.readLine();
+        try(reader = new BufferedReader(new InputStreamReader(System.in));){
+            return reader.readLine();
+        }
     }
 
     public static int readNumber(){
