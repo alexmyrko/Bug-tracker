@@ -4,10 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class ReadHelper {
-    private static BufferedReader reader;
 
     public static String readString() {
-        try(reader = new BufferedReader(new InputStreamReader(System.in));){
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));){
             return reader.readLine();
         }
     }
