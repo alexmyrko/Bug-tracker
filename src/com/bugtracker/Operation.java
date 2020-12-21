@@ -20,6 +20,6 @@ public enum Operation {
     // get one of routine Operations (CREATE, EDIT, VIEW) or exit
     public static Operation getRoutineOperationByOrdinal(int n){
         // TODO
-
+        return EXIT;
     }
 }
