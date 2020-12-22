@@ -1,6 +1,6 @@
 package com.bugtracker;
 
-import com.bugtracker.commands.LoginCommand;
+import com.bugtracker.login.Login;
 import com.bugtracker.model.Ticket;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class BugTracker {
         bugTracker.initUsers();
         for (User user : users)
             System.out.println(user.getUserName());
-        User currentUser = new LoginCommand().execute();
+        User currentUser = new Login().execute();
         System.out.println(currentUser.getUserName());
 
     }

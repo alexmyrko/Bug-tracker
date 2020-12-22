@@ -1,4 +1,4 @@
-package com.bugtracker.commands;
+package com.bugtracker.login;
 
 import com.bugtracker.BugTracker;
 import com.bugtracker.ReadHelper;
@@ -7,7 +7,7 @@ import com.bugtracker.User;
 import java.util.ResourceBundle;
 
 // You need implement interface method for looging on an existing user
-public class LoginCommand implements Login {
+public class Login implements Logging {
     private ResourceBundle validUsers =  ResourceBundle.getBundle(BugTracker.class.getPackage().getName() + ".resources.users");
     @Override
     public User execute() {

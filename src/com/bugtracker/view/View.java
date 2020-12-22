@@ -11,7 +11,7 @@ public class View {
     }
 
     public void login(){
-        System.out.println("1 - Login, 2 - Register, 3 - Exit\nChoose operation:");
+        System.out.println("1 - Logging, 2 - Register, 3 - Exit\nChoose operation:");
        // TODO
     }
 

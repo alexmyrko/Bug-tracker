@@ -1,6 +1,6 @@
-package com.bugtracker.commands;
+package com.bugtracker.login;
 
 // You need implement interface method for viewing all active Tickets
-public class RegisterCommand{
+public class Register implements Logging{
 
 }
