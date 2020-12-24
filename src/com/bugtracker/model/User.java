@@ -1,4 +1,4 @@
-package com.bugtracker;
+package com.bugtracker.model;
 
 import java.util.ArrayList;
 import java.util.List;
