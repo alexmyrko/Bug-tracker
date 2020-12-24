@@ -10,9 +10,12 @@ public class View {
         this.bugTracker = bugTracker;
     }
 
-    public void login(){
-        System.out.println("1 - Logging, 2 - Register, 3 - Exit\nChoose operation:");
+    public User login(){
        // TODO
+    }
+
+    public User register(){
+        // TODO
     }
 
     public void routine(){
