@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import com.bugtracker.login.Login;
 import com.bugtracker.model.Ticket;
+import com.bugtracker.model.User;
 
 import java.io.IOException;
 import java.util.*;

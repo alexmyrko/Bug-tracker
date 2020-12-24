@@ -1,7 +1,7 @@
 package com.bugtracker.view;
 
 import com.bugtracker.BugTracker;
-import com.bugtracker.User;
+import com.bugtracker.model.User;
 
 public class View {
     private BugTracker bugTracker;
