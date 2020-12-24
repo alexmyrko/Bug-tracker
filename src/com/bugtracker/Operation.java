@@ -20,7 +20,6 @@ public enum Operation {
                 throw new IllegalArgumentException("Please, choose correct variant!");
         }
     }
-<<<<<<< HEAD
 
     // get one of routine Operations (CREATE, EDIT, VIEW) or exit
     public static Operation getRoutineOperationByOrdinal(int n){
@@ -28,6 +27,3 @@ public enum Operation {
         return EXIT;
     }
 }
-=======
-}
->>>>>>> main
