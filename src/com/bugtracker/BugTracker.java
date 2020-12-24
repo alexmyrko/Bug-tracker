@@ -1,5 +1,7 @@
 package com.bugtracker;
 
+import java.util.List;
+import java.util.ResourceBundle;
 import com.bugtracker.login.Login;
 import com.bugtracker.model.Ticket;
 
