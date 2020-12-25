@@ -3,6 +3,7 @@ package com.bugtracker;
 import java.util.List;
 import java.util.ResourceBundle;
 import com.bugtracker.login.Login;
+import com.bugtracker.login.Register;
 import com.bugtracker.model.Ticket;
 import com.bugtracker.model.User;
 
@@ -17,18 +18,19 @@ public class BugTracker {
     public static void main(String[] args) throws IOException {
         BugTracker bugTracker = new BugTracker();
         bugTracker.initUsers();
-        for (User user : users)
-            System.out.println(user.getUserName());
-        User currentUser = new Login().execute();
-        System.out.println(currentUser.getUserName());
 
+        User currentUser = new Login().execute();
+        System.out.println("Logged user: " + currentUser.getUserName());
+
+        currentUser = new Register().execute();
+        System.out.println("Registered user: " + currentUser.getUserName());
     }
 
     public static List<User> getUsers() {
         return users;
     }
 
-    public void initUsers(){
+    private void initUsers(){
         for (String userName : validUsers.keySet())
             users.add(new User(userName));
     }
