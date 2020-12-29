@@ -5,5 +5,5 @@ import com.bugtracker.model.User;
 import java.io.FileNotFoundException;
 
 public interface Login {
-    User execute() throws FileNotFoundException;
+    User execute();
 }
