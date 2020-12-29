@@ -7,18 +7,6 @@ public enum Operation {
 
     // get logging / register operation (LOGIN , REGISTER) or exit
     public static Operation getLoginOperationByOrdinal() throws IOException {
-        System.out.println("Enter:\n1 - to login\n2 - to register\n3 - to exit\n");
-        int loginMenuVariant = ReadHelper.readNumber();
-        switch (loginMenuVariant) {
-            case 1:
-                return LOGIN;
-            case 2:
-                return REGISTER;
-            case 3:
-                return EXIT;
-            default:
-                throw new IllegalArgumentException("Please, choose correct variant!");
-        }
     }
 
     // get one of routine Operations (CREATE, EDIT, VIEW) or exit
