@@ -26,7 +26,7 @@ public class BugTracker {
 
     public static List<User> getUsers() {
         return users;
-    }
+    } 
 
     public void initUsers(){
         for (String userName : validUsers.keySet())
