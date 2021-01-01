@@ -7,6 +7,7 @@ public enum Operation {
 
     // get logging / register operation (LOGIN , REGISTER) or exit
     public static Operation getLoginOperationByOrdinal() throws IOException {
+        return LOGIN;
     }
 
     // get one of routine Operations (CREATE, EDIT, VIEW) or exit

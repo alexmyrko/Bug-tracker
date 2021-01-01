@@ -1,15 +1,12 @@
-package com.bugtracker.login;
+package com.bugtracker.commands;
 
-import com.bugtracker.BugTracker;
 import com.bugtracker.model.User;
-
 
 // You need implement interface method for viewing all active Tickets
 public class RegisterImpl implements Login {
-    private BugTracker bugTracker;
 
-    public RegisterImpl(BugTracker bugTracker){
-        this.bugTracker = bugTracker;
+    public RegisterImpl(){
+
     }
 
     @Override
