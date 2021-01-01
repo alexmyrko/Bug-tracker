@@ -1,27 +1,34 @@
 package com.bugtracker.view;
 
-import com.bugtracker.BugTracker;
 import com.bugtracker.Operation;
-import com.bugtracker.login.LoginImpl;
-import com.bugtracker.login.RegisterImpl;
+import com.bugtracker.dao.UsersDAO;
+import com.bugtracker.dao.UsersDaoImpl;
+import com.bugtracker.commands.Login;
+import com.bugtracker.commands.LoginImpl;
+import com.bugtracker.commands.RegisterImpl;
 import com.bugtracker.model.User;
 
 import java.io.IOException;
 
 public class View {
-    private BugTracker bugTracker;
+    private final Login login;
+    private final Login register;
+    private final UsersDAO usersDAO;
 
-    public View(BugTracker bugTracker){
-        this.bugTracker = bugTracker;
+    public View(){
+        login = new LoginImpl();
+        register = new RegisterImpl();
+        usersDAO = UsersDaoImpl.getInstance();
     }
 
     public User login() throws IOException {
+        usersDAO.initUsers();
         User user = null;
         while (true) {
             Operation operation = Operation.getLoginOperationByOrdinal();
             switch (operation) {
-                case LOGIN -> user = new LoginImpl(bugTracker).execute();
-                case REGISTER -> user = new RegisterImpl(bugTracker).execute();
+                case LOGIN -> user = login.execute();
+                case REGISTER -> user = register.execute();
                 case EXIT -> System.exit(0);
             }
             if (user != null)

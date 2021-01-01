@@ -1,16 +1,17 @@
-package com.bugtracker.login;
+package com.bugtracker.commands;
 
-import com.bugtracker.BugTracker;
+import com.bugtracker.dao.UsersDAO;
+import com.bugtracker.dao.UsersDaoImpl;
 import com.bugtracker.ReadHelper;
 import com.bugtracker.model.User;
 import java.util.Map;
 
 // You need implement interface method for looging on an existing user
 public class LoginImpl implements Login {
-    private BugTracker bugTracker;
+    private final UsersDAO usersDAO;
 
-    public LoginImpl(BugTracker bugTracker){
-        this.bugTracker = bugTracker;
+    public LoginImpl(){
+        usersDAO = UsersDaoImpl.getInstance();
     }
 
     @Override
@@ -19,11 +20,13 @@ public class LoginImpl implements Login {
         String userName = ReadHelper.readString();
         System.out.print("Password: ");
         String password = ReadHelper.readString();
-        for (Map.Entry<String, User> entry : bugTracker.getUsers().entrySet())
+        for (Map.Entry<String, User> entry : usersDAO.getAllUsers().entrySet())
             if (entry.getKey().equals(userName) && entry.getValue().getPassword().equals(password)){
-                System.out.println("Yeap !");
+                System.out.println(userName + " logged on successfully !");
                 return entry.getValue();
             }
         return null;
     }
+
+
 }
