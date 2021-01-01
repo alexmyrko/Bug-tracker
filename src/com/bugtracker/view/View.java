@@ -19,10 +19,10 @@ public class View {
         login = new LoginImpl();
         register = new RegisterImpl();
         usersDAO = UsersDaoImpl.getInstance();
+        usersDAO.initUsers();
     }
 
     public User login() throws IOException {
-        usersDAO.initUsers();
         User user = null;
         while (true) {
             Operation operation = Operation.getLoginOperationByOrdinal();

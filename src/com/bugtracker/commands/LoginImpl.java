@@ -17,15 +17,13 @@ public class LoginImpl implements Login {
     @Override
     public User execute() {
         System.out.print("Username: ");
-        String userName = ReadHelper.readString();
+        String loginName = ReadHelper.readString();
         System.out.print("Password: ");
         String password = ReadHelper.readString();
-        for (Map.Entry<String, User> entry : usersDAO.getAllUsers().entrySet())
-            if (entry.getKey().equals(userName) && entry.getValue().getPassword().equals(password)){
-                System.out.println(userName + " logged on successfully !");
-                return entry.getValue();
-            }
-        return null;
+        User currentUser = usersDAO.getAllUsers().get(loginName);
+        if (currentUser != null && currentUser.getPassword().equals(password))
+                return currentUser;
+        else return null;
     }
 
 
