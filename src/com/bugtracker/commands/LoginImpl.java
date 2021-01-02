@@ -12,6 +12,7 @@ public class LoginImpl implements Login {
 
     public LoginImpl(){
         usersDAO = UsersDaoImpl.getInstance();
+        usersDAO.initUsers();
     }
 
     @Override

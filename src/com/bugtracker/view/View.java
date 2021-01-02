@@ -13,13 +13,10 @@ import java.io.IOException;
 public class View {
     private final Login login;
     private final Login register;
-    private final UsersDAO usersDAO;
 
     public View(){
         login = new LoginImpl();
         register = new RegisterImpl();
-        usersDAO = UsersDaoImpl.getInstance();
-        usersDAO.initUsers();
     }
 
     public User login() throws IOException {
