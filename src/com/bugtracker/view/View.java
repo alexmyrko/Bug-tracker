@@ -34,7 +34,6 @@ public class View {
     }
 
     public void routine() {
-        System.out.println("1 - Create, 2 - Edit, 3 - View, 4 - Exit\nChoose operation:");
         Operation operation = Operation.getRoutineOperationByOrdinal();
         switch (operation) {
             case CREATE -> System.out.println("Command CREATE");
