@@ -6,7 +6,6 @@ public enum Operation {
     // get logging / register operation (LOGIN , REGISTER) or exit
     public static Operation getLoginOperationByOrdinal() {
         while (true) {
-
             System.out.println("Enter:\n1 - to login\n2 - to register\n3 - to exit\n");
             int loginMenuVariant = ReadHelper.readNumber();
             try {

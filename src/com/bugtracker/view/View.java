@@ -14,7 +14,7 @@ public class View {
     private final Login login;
     private final Login register;
 
-    public View(){
+    public View() {
         login = new LoginImpl();
         register = new RegisterImpl();
     }
@@ -33,10 +33,14 @@ public class View {
         }
     }
 
-    public void routine(){
+    public void routine() {
         System.out.println("1 - Create, 2 - Edit, 3 - View, 4 - Exit\nChoose operation:");
-        // TODO
-
+        Operation operation = Operation.getRoutineOperationByOrdinal();
+        switch (operation) {
+            case CREATE -> System.out.println("Command CREATE");
+            case EDIT -> System.out.println("Command EDIT");
+            case VIEW -> System.out.println("Command VIEW");
+            case EXIT -> System.exit(0);
+        }
     }
-
 }
