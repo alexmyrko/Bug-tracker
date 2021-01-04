@@ -4,7 +4,6 @@ import com.bugtracker.dao.UsersDAO;
 import com.bugtracker.dao.UsersDaoImpl;
 import com.bugtracker.ReadHelper;
 import com.bugtracker.model.User;
-import java.util.Map;
 
 // You need implement interface method for looging on an existing user
 public class LoginImpl implements Login {
@@ -12,7 +11,6 @@ public class LoginImpl implements Login {
 
     public LoginImpl(){
         usersDAO = UsersDaoImpl.getInstance();
-        usersDAO.initUsers();
     }
 
     @Override
@@ -26,6 +24,4 @@ public class LoginImpl implements Login {
                 return currentUser;
         else return null;
     }
-
-
 }

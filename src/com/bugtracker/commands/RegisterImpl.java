@@ -5,31 +5,30 @@ import com.bugtracker.dao.UsersDAO;
 import com.bugtracker.dao.UsersDaoImpl;
 import com.bugtracker.model.User;
 
-// You need implement interface method for viewing all active Tickets
 public class RegisterImpl implements Login {
+    private static User newUser;
     private final UsersDAO usersDAO;
-    String newUserName = "";
+    String newLogin = "";
     String newPassword = "";
-    String nameSurname = "";
+    String newUserName = "";
 
     public RegisterImpl() {
         usersDAO = UsersDaoImpl.getInstance();
-        usersDAO.initUsers();
     }
 
     @Override
     public User execute() {
         User existedUser;
         do {
-            System.out.println("Please, enter your login:");
-            newUserName = ReadHelper.readString();
-            existedUser = usersDAO.getAllUsers().get(newUserName);
+            System.out.print("Please, enter your login: ");
+            newLogin = ReadHelper.readString();
+            existedUser = usersDAO.getAllUsers().get(newLogin);
             if (existedUser != null) {
                 System.out.println("This username have been existed. Please, enter another one!");
             }
         } while (existedUser != null);
         do {
-            System.out.print("Please, enter your password:");
+            System.out.print("Please, enter your password: ");
             newPassword = ReadHelper.readString();
             if (newPassword.isEmpty() || newPassword.length() < 3) {
                 System.out.println("Your password isn`t safe. Use more symbols!");
@@ -37,10 +36,11 @@ public class RegisterImpl implements Login {
         } while (newPassword.isEmpty() || newPassword.length() < 3);
 
         do {
-            System.out.print("Please, enter your name and surname:");
-            nameSurname = ReadHelper.readString();
-        } while (nameSurname.isEmpty() || nameSurname.length() < 3);
-        User newUser = new User(newUserName,newPassword);
+            System.out.print("Please, enter your name and surname: ");
+            newUserName = ReadHelper.readString();
+        } while (newUserName.isEmpty() || newUserName.length() < 3);
+        newUser = new User(newLogin, newPassword);
+        usersDAO.addUser(newLogin, newUser);
         return newUser;
     }
 }
