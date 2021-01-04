@@ -1,44 +1,40 @@
 package com.bugtracker.view;
 
 import com.bugtracker.Operation;
-import com.bugtracker.dao.UsersDAO;
-import com.bugtracker.dao.UsersDaoImpl;
-import com.bugtracker.commands.Login;
-import com.bugtracker.commands.LoginImpl;
-import com.bugtracker.commands.RegisterImpl;
+import com.bugtracker.commands.*;
 import com.bugtracker.model.User;
-
-import java.io.IOException;
 
 public class View {
     private final Login login;
     private final Login register;
+    private final TicketService ticketService;
+    private User currentUser = null;
 
     public View() {
         login = new LoginImpl();
         register = new RegisterImpl();
+        ticketService = new TicketServiceImpl();
     }
 
-    public User login() throws IOException {
-        User user = null;
+    public void login() {
         while (true) {
             Operation operation = Operation.getLoginOperationByOrdinal();
             switch (operation) {
-                case LOGIN -> user = login.execute();
-                case REGISTER -> user = register.execute();
+                case LOGIN -> currentUser = login.execute();
+                case REGISTER -> currentUser = register.execute();
                 case EXIT -> System.exit(0);
             }
-            if (user != null)
-                return user;
+            if (currentUser != null)
+                break;
         }
     }
 
     public void routine() {
         Operation operation = Operation.getRoutineOperationByOrdinal();
         switch (operation) {
-            case CREATE -> System.out.println("Command CREATE");
-            case EDIT -> System.out.println("Command EDIT");
-            case VIEW -> System.out.println("Command VIEW");
+            case CREATE -> ticketService.create(currentUser);
+            case EDIT -> ticketService.edit(currentUser);
+            case VIEW -> ticketService.print();
             case EXIT -> System.exit(0);
         }
     }

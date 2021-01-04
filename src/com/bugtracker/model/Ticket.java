@@ -1,5 +1,7 @@
 package com.bugtracker.model;
 
+import java.util.Date;
+
 // Class Ticket should have all necessary fields described in Excel file and in description added to the project
 public class Ticket {
     private int id;
@@ -8,18 +10,19 @@ public class Ticket {
     private User reporter;
     private Status status;
     private Priority priority;
-    private int timeSpent;
+    private int timeSpent = 0;
     private int timeEstimated;
+    private Date date;
 
-    public Ticket(int id, String description, User assignee, User reporter, Status status, Priority priority, int timeSpent, int timeEstimated) {
+    public Ticket(int id, String description, User assignee, User reporter, Status status, Priority priority, int timeEstimated) {
         this.id = id;
         this.description = description;
         this.assignee = assignee;
         this.reporter = reporter;
         this.status = status;
         this.priority = priority;
-        this.timeSpent = timeSpent;
         this.timeEstimated = timeEstimated;
+        date = new Date();
     }
 
     public int getId() {
@@ -84,5 +87,20 @@ public class Ticket {
 
     public void setTimeEstimated(int timeEstimated) {
         this.timeEstimated = timeEstimated;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", assignee=" + assignee.getUserName() +
+                ", reporter=" + reporter.getUserName() +
+                ", status=" + status +
+                ", priority=" + priority +
+                ", timeSpent=" + timeSpent +
+                ", timeEstimated=" + timeEstimated +
+                ", creation date=" + date +
+                '}';
     }
 }

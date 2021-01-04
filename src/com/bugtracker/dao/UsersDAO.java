@@ -11,4 +11,6 @@ public interface UsersDAO {
     void initUsers();
 
     void addUser(String login, User user);
+
+    User getUserByLogin(String login);
 }

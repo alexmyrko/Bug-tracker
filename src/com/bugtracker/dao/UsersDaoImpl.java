@@ -19,10 +19,6 @@ public class UsersDaoImpl implements UsersDAO {
         return instance;
     }
 
-    public Map<String, User> getUsers() {
-        return users;
-    }
-
     public void initUsers() {
         users.put("alex", new User("Oleksandr Myrko", "cursor1"));
         users.put("max", new User("Maksym Protsenko", "cursor2"));
@@ -37,5 +33,10 @@ public class UsersDaoImpl implements UsersDAO {
     @Override
     public Map<String, User> getAllUsers() {
         return users;
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        return users.get(login);
     }
 }
