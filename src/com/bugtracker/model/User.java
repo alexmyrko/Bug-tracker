@@ -1,6 +1,5 @@
 package com.bugtracker.model;
 
-//  Class User should have an 'id'. 'firstname' and 'lastname' fields  with setters and getters
 public class User {
     private String userName;
     private String password;

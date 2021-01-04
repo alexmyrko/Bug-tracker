@@ -5,23 +5,23 @@ import com.bugtracker.dao.TicketsDaoImpl;
 import com.bugtracker.model.User;
 
 public class TicketServiceImpl implements TicketService{
-    private TicketsDAO ticketsDAO;
+    private final TicketsDAO ticketsDAO;
     public TicketServiceImpl(){
         ticketsDAO = TicketsDaoImpl.getInstance();
     }
 
     @Override
-    public void create(User currentUser) {
+    public void create() {
 
     }
 
     @Override
-    public void edit(User currentUser) {
+    public void edit() {
 
     }
 
     @Override
     public void print() {
-        System.out.println("Press Enter button to print all tickets or enter login to print certain user tickets:");
+
     }
 }

@@ -1,6 +1,6 @@
 package com.bugtracker.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 // Class Ticket should have all necessary fields described in Excel file and in description added to the project
 public class Ticket {
@@ -12,17 +12,17 @@ public class Ticket {
     private Priority priority;
     private int timeSpent = 0;
     private int timeEstimated;
-    private Date date;
+    private int totalTime = timeEstimated;
+    private LocalDateTime creationDate;
 
-    public Ticket(int id, String description, User assignee, User reporter, Status status, Priority priority, int timeEstimated) {
-        this.id = id;
+    public Ticket(String description, User assignee, User reporter, Status status, Priority priority, int timeEstimated) {
         this.description = description;
         this.assignee = assignee;
         this.reporter = reporter;
         this.status = status;
         this.priority = priority;
         this.timeEstimated = timeEstimated;
-        date = new Date();
+        creationDate = LocalDateTime.now();
     }
 
     public int getId() {
@@ -54,7 +54,7 @@ public class Ticket {
     }
 
     public int getTimeEstimated() {
-        return timeEstimated;
+        return totalTime - timeSpent;
     }
 
     public void setId(int id) {
@@ -85,10 +85,6 @@ public class Ticket {
         this.timeSpent = timeSpent;
     }
 
-    public void setTimeEstimated(int timeEstimated) {
-        this.timeEstimated = timeEstimated;
-    }
-
     @Override
     public String toString() {
         return "Ticket{" +
@@ -100,7 +96,7 @@ public class Ticket {
                 ", priority=" + priority +
                 ", timeSpent=" + timeSpent +
                 ", timeEstimated=" + timeEstimated +
-                ", creation date=" + date +
+                ", creation date=" + creationDate +
                 '}';
     }
 }

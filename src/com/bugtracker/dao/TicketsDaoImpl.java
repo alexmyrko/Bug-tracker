@@ -1,5 +1,7 @@
 package com.bugtracker.dao;
 
+import com.bugtracker.commands.TicketService;
+import com.bugtracker.commands.TicketServiceImpl;
 import com.bugtracker.model.Priority;
 import com.bugtracker.model.Status;
 import com.bugtracker.model.Ticket;
@@ -9,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TicketsDaoImpl implements TicketsDAO{
-    private static Map<Integer, Ticket> tickets = new HashMap<>();
+    private Map<Integer, Ticket> tickets = new HashMap<>();
     private static TicketsDaoImpl instance = null;
-    int counter = 1;
+    private int counter = 1;
 
     private TicketsDaoImpl(){
         this.initTickets();
@@ -30,19 +32,22 @@ public class TicketsDaoImpl implements TicketsDAO{
 
     @Override
     public void initTickets() {
-        int id = counter++;
-        tickets.put(id, new Ticket(id, "Creating project structure", UsersDaoImpl.getInstance().getUserByLogin("alex"),
+        addTicket(new Ticket( "Creating project structure", UsersDaoImpl.getInstance().getUserByLogin("alex"),
                 UsersDaoImpl.getInstance().getUserByLogin("alex"), Status.PLANNED, Priority.HIGH, 72));
-        id = counter++;
-        tickets.put(id, new Ticket(id, "Implementing Register class", UsersDaoImpl.getInstance().getUserByLogin("alex"),
+        addTicket(new Ticket("Implementing Register class", UsersDaoImpl.getInstance().getUserByLogin("alex"),
                 UsersDaoImpl.getInstance().getUserByLogin("max"), Status.PLANNED, Priority.MEDIUM, 24));
-        id = counter++;
-        tickets.put(id, new Ticket(id, "Implementing Ticket class", UsersDaoImpl.getInstance().getUserByLogin("max"),
+        addTicket(new Ticket("Implementing Ticket class", UsersDaoImpl.getInstance().getUserByLogin("max"),
                 UsersDaoImpl.getInstance().getUserByLogin("andrew"), Status.PLANNED, Priority.LOW, 24));
     }
 
     @Override
-    public void addTicket(Integer id, Ticket ticket) {
+    public void addTicket(Ticket ticket) {
+        int id = counter++;
+        ticket.setId(id);
         tickets.put(id, ticket);
+    }
+
+    public TicketService getTicketService(){
+        return new TicketServiceImpl();
     }
 }
