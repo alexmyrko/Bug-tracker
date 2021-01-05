@@ -3,8 +3,6 @@ package com.bugtracker.view;
 import com.bugtracker.Operation;
 import com.bugtracker.ReadHelper;
 import com.bugtracker.commands.*;
-import com.bugtracker.dao.UsersDAO;
-import com.bugtracker.dao.UsersDaoImpl;
 import com.bugtracker.model.Ticket;
 import com.bugtracker.model.User;
 
@@ -12,16 +10,16 @@ import static com.bugtracker.model.Priority.*;
 import static com.bugtracker.model.Status.PLANNED;
 
 public class View {
-    private static UsersDAO usersDao;
     private final Login login;
     private final Login register;
     private final TicketService ticketService;
+    private static UserService userService;
 
     public View() {
         login = new LoginImpl();
         register = new RegisterImpl();
         ticketService = new TicketServiceImpl();
-        usersDao = UsersDaoImpl.getInstance();
+        userService = new UserServiceImpl();
     }
 
     public void login() {
@@ -54,7 +52,7 @@ public class View {
 
     public static Ticket createTicket() {
         Ticket ticket = new Ticket();
-        ticket.setReporter(usersDao.getCurrentUser());
+        ticket.setReporter(userService.getCurrentUser());
 
         System.out.println("\nEnter description for ticket or add/edit it later: ");
         String description = ReadHelper.readString();
@@ -62,7 +60,7 @@ public class View {
 
         System.out.println("\nEnter assignee login");
         String loginName = ReadHelper.readString();
-        User assigneeUser = usersDao.getUserByLogin(loginName);
+        User assigneeUser = userService.getUserByLogin(loginName);
         if (assigneeUser != null) {
             ticket.setAssignee(assigneeUser);
         } else {
