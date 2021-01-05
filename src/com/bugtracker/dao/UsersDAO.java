@@ -1,8 +1,6 @@
 package com.bugtracker.dao;
 
-import com.bugtracker.commands.Login;
 import com.bugtracker.model.User;
-
 import java.util.Map;
 
 public interface UsersDAO {
@@ -19,7 +17,4 @@ public interface UsersDAO {
 
     User getCurrentUser();
 
-    Login getLogin();
-
-    Login getRegister();
 }

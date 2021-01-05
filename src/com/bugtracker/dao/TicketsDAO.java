@@ -1,6 +1,5 @@
 package com.bugtracker.dao;
 
-import com.bugtracker.commands.TicketService;
 import com.bugtracker.model.Ticket;
 import java.util.Map;
 
@@ -11,5 +10,4 @@ public interface TicketsDAO {
 
     void addTicket(Ticket ticket);
 
-    TicketService getTicketService();
 }

@@ -41,6 +41,7 @@ public class RegisterImpl implements Login {
         } while (newUserName.isEmpty() || newUserName.length() < 3);
         newUser = new User(newLogin, newPassword);
         usersDAO.addUser(newLogin, newUser);
+        usersDAO.setCurrentUser(newUser);
         return newUser;
     }
 }

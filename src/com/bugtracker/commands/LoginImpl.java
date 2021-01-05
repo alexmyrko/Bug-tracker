@@ -20,8 +20,10 @@ public class LoginImpl implements Login {
         System.out.print("Password: ");
         String password = ReadHelper.readString();
         User currentUser = usersDAO.getAllUsers().get(loginName);
-        if (currentUser != null && currentUser.getPassword().equals(password))
-                return currentUser;
+        if (currentUser != null && currentUser.getPassword().equals(password)) {
+            UsersDaoImpl.getInstance().setCurrentUser(currentUser);
+            return currentUser;
+        }
         else return null;
     }
 }

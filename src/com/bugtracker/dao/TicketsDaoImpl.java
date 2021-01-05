@@ -1,11 +1,8 @@
 package com.bugtracker.dao;
 
-import com.bugtracker.commands.TicketService;
-import com.bugtracker.commands.TicketServiceImpl;
 import com.bugtracker.model.Priority;
 import com.bugtracker.model.Status;
 import com.bugtracker.model.Ticket;
-import com.bugtracker.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +44,4 @@ public class TicketsDaoImpl implements TicketsDAO{
         tickets.put(id, ticket);
     }
 
-    public TicketService getTicketService(){
-        return new TicketServiceImpl();
-    }
 }

@@ -1,10 +1,6 @@
 package com.bugtracker.dao;
 
-import com.bugtracker.commands.Login;
-import com.bugtracker.commands.LoginImpl;
-import com.bugtracker.commands.RegisterImpl;
 import com.bugtracker.model.User;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,11 +50,4 @@ public class UsersDaoImpl implements UsersDAO {
         return curentUser;
     }
 
-    public Login getLogin(){
-        return new LoginImpl();
-    }
-
-    public Login getRegister(){
-        return new RegisterImpl();
-    }
 }

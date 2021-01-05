@@ -1,17 +1,17 @@
 package com.bugtracker.view;
 
 import com.bugtracker.Operation;
-import com.bugtracker.dao.TicketsDaoImpl;
-import com.bugtracker.dao.UsersDaoImpl;
+import com.bugtracker.commands.*;
 import com.bugtracker.model.User;
 
 public class View {
-    private final UsersDaoImpl usersDao;
-    private final TicketsDaoImpl ticketsDao;
-
+    private final Login login;
+    private final Login register;
+    private final TicketService ticketService;
     public View() {
-        usersDao = UsersDaoImpl.getInstance();
-        ticketsDao = TicketsDaoImpl.getInstance();
+        login = new LoginImpl();
+        register = new RegisterImpl();
+        ticketService = new TicketServiceImpl();
     }
 
     public void login() {
@@ -19,12 +19,11 @@ public class View {
         while (true) {
             Operation operation = Operation.getLoginOperationByOrdinal();
             switch (operation) {
-                case LOGIN -> currentUser = usersDao.getLogin().execute();
-                case REGISTER -> currentUser = usersDao.getRegister().execute();
+                case LOGIN -> currentUser = login.execute();
+                case REGISTER -> currentUser = register.execute();
                 case EXIT -> System.exit(0);
             }
             if (currentUser != null) {
-                usersDao.setCurrentUser(currentUser);
                 break;
             }
         }
@@ -33,11 +32,11 @@ public class View {
     public void routine() {
         Operation operation = Operation.getRoutineOperationByOrdinal();
         switch (operation) {
-            case CREATE -> ticketsDao.getTicketService().create();
-            case EDIT -> ticketsDao.getTicketService().edit();
+            case CREATE -> ticketService.create();
+            case EDIT -> ticketService.edit();
             case VIEW -> {
                 System.out.println("Press Enter button to print all tickets or enter login to print certain user tickets:");
-                ticketsDao.getTicketService().print();
+                ticketService.print();
             }
             case EXIT -> System.exit(0);
         }
