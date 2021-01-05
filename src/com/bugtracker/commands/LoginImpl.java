@@ -21,7 +21,7 @@ public class LoginImpl implements Login {
         String password = ReadHelper.readString();
         User currentUser = usersDAO.getAllUsers().get(loginName);
         if (currentUser != null && currentUser.getPassword().equals(password)) {
-            UsersDaoImpl.getInstance().setCurrentUser(currentUser);
+            usersDAO.setCurrentUser(currentUser);
             return currentUser;
         }
         else return null;
