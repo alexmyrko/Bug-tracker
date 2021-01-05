@@ -3,7 +3,6 @@ package com.bugtracker.commands;
 import com.bugtracker.dao.UsersDAO;
 import com.bugtracker.dao.UsersDaoImpl;
 import com.bugtracker.model.User;
-
 import java.util.Map;
 
 public class UserServiceImpl implements UserService{
@@ -20,5 +19,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public Map<String, User> getAllUsers() {
         return usersDAO.getAllUsers();
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return usersDAO.getCurrentUser();
     }
 }

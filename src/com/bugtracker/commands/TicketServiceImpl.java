@@ -12,8 +12,8 @@ public class TicketServiceImpl implements TicketService{
     }
 
     @Override
-    public void create() {
-
+    public void create(Ticket ticket) {
+        ticketsDAO.addTicket(ticket);
     }
 
 

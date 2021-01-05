@@ -26,6 +26,10 @@ public class Ticket {
         totalTime = timeEstimated;
     }
 
+    public Ticket() {
+        creationDate = LocalDateTime.now();
+    }
+
     public int getId() {
         return id;
     }
