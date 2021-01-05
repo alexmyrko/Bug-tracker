@@ -12,7 +12,7 @@ public class Ticket {
     private Priority priority;
     private int timeSpent = 0;
     private int timeEstimated;
-    private int totalTime = timeEstimated;
+    private int totalTime;
     private LocalDateTime creationDate;
 
     public Ticket(String description, User assignee, User reporter, Status status, Priority priority, int timeEstimated) {
@@ -23,6 +23,7 @@ public class Ticket {
         this.priority = priority;
         this.timeEstimated = timeEstimated;
         creationDate = LocalDateTime.now();
+        totalTime = timeEstimated;
     }
 
     public int getId() {
