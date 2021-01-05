@@ -51,49 +51,6 @@ public class View {
         }
     }
 
-    public static Ticket createTicket() {
-        Ticket ticket = new Ticket();
-        ticket.setReporter(userService.getCurrentUser());
-
-        System.out.println("\nEnter description for ticket or add/edit it later: ");
-        String description = ReadHelper.readString();
-        ticket.setDescription(description);
-
-        System.out.println("\nEnter assignee login");
-        String loginName = ReadHelper.readString();
-        User assigneeUser = userService.getUserByLogin(loginName);
-        if (assigneeUser != null) {
-            ticket.setAssignee(assigneeUser);
-        } else {
-            ticket.setAssignee(null);
-            System.out.println("This assignee doesn't exist. You can add it later.");
-        }
-
-        ticket.setStatus(Status.PLANNED);
-
-        System.out.println("\nEnter the digit to set priority: \n 1 - set \"Low\" priority\n 2 - set \"Medium\" priority \n 3 - set \"High\" priority");
-        int variant = ReadHelper.readNumber();
-        switch (variant) {
-            case 1 -> ticket.setPriority(Priority.LOW);
-            case 2 -> ticket.setPriority(Priority.MEDIUM);
-            case 3 -> ticket.setPriority(Priority.HIGH);
-            default -> {
-                ticket.setPriority(Priority.LOW);
-                System.out.println("You entered wrong variant. Priority has been changed to \"Low\". You can change it later.");
-            }
-        }
-
-        System.out.println("\nSet estimated time (hours):");
-        int estimatedTime = ReadHelper.readNumber();
-        if (estimatedTime != 0) {
-            ticket.setTimeEstimated(estimatedTime);
-        } else {
-            System.out.println("You can add estimated time later.");
-        }
-        System.out.println("\nTicket has been created!");
-        return ticket;
-    }
-
     public Ticket createTicket() {
         Ticket ticket = new Ticket();
         ticket.setReporter(userService.getCurrentUser());
