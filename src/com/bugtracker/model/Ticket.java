@@ -26,6 +26,10 @@ public class Ticket {
         totalTime = timeEstimated;
     }
 
+    public Ticket() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -84,6 +88,10 @@ public class Ticket {
 
     public void setTimeSpent(int timeSpent) {
         this.timeSpent = timeSpent;
+    }
+
+    public void setTimeEstimated(int timeEstimated) {
+        this.timeEstimated = timeEstimated;
     }
 
     @Override
