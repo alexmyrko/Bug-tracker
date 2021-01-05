@@ -44,4 +44,8 @@ public class TicketsDaoImpl implements TicketsDAO{
         tickets.put(id, ticket);
     }
 
+    @Override
+    public Ticket getTicketByID(int id) {
+        return tickets.get(id);
+    }
 }

@@ -10,4 +10,5 @@ public interface TicketsDAO {
 
     void addTicket(Ticket ticket);
 
+    Ticket getTicketByID(int id);
 }

@@ -5,7 +5,6 @@ import com.bugtracker.dao.UsersDaoImpl;
 import com.bugtracker.ReadHelper;
 import com.bugtracker.model.User;
 
-// You need implement interface method for looging on an existing user
 public class LoginImpl implements Login {
     private final UsersDAO usersDAO;
 

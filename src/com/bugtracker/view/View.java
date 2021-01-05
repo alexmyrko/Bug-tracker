@@ -1,17 +1,24 @@
 package com.bugtracker.view;
 
 import com.bugtracker.Operation;
+import com.bugtracker.ReadHelper;
 import com.bugtracker.commands.*;
+import com.bugtracker.model.Priority;
+import com.bugtracker.model.Status;
+import com.bugtracker.model.Ticket;
 import com.bugtracker.model.User;
+import java.util.Map;
 
 public class View {
     private final Login login;
     private final Login register;
     private final TicketService ticketService;
+    private final UserService userService;
     public View() {
         login = new LoginImpl();
         register = new RegisterImpl();
         ticketService = new TicketServiceImpl();
+        userService = new UserServiceImpl();
     }
 
     public void login() {
@@ -30,15 +37,127 @@ public class View {
     }
 
     public void routine() {
-        Operation operation = Operation.getRoutineOperationByOrdinal();
-        switch (operation) {
-            case CREATE -> ticketService.create();
-            case EDIT -> ticketService.edit();
-            case VIEW -> {
-                System.out.println("Press Enter button to print all tickets or enter login to print certain user tickets:");
-                ticketService.print();
+        while (true) {
+            Operation operation = Operation.getRoutineOperationByOrdinal();
+            switch (operation) {
+                case CREATE -> ticketService.create();
+                case EDIT -> editTicket();
+                case VIEW -> {
+                    System.out.println("Press Enter button to print all tickets or enter login to print certain user tickets:");
+                    ticketService.print();
+                }
+                case EXIT -> System.exit(0);
             }
-            case EXIT -> System.exit(0);
         }
+    }
+
+
+    public void editTicket() {
+        Ticket ticket = null;
+        int ticketOperation = 0;
+        while(ticket == null) {
+            System.out.println("Enter ticket ID, which should be edited: ");
+            int id = ReadHelper.readNumber();
+            ticket = ticketService.getTicketByID(id);
+        }
+        while(true) {
+            System.out.println(ticket.toString());
+            System.out.println("Choose ticket field to modify: \n1 - Description\n2 - Assignee\n3 - Status\n4 - Priority\n" +
+                    "5 - Time Spent\n6 - Time estimated\n7 - Exit to main menu");
+            ticketOperation = ReadHelper.readNumber();
+            switch (ticketOperation){
+                case 1 -> editDescription(ticket);
+                case 2 -> editAssignee(ticket);
+                case 3 -> editStatus(ticket);
+                case 4 -> editPriority(ticket);
+                case 5 -> editTimeSpent(ticket);
+                case 6 -> editTimeEstimated(ticket);
+                case 7 -> {return;}
+            }
+        }
+    }
+    private void editDescription(Ticket ticket){
+        System.out.println("Current description: " + ticket.getDescription() + "\nEnter new description:");
+        ticket.setDescription(ReadHelper.readString());
+    }
+
+    private void editAssignee(Ticket ticket){
+        User user = null;
+        System.out.print("Current assignee: ");
+        if (ticket.getAssignee() == null)
+            System.out.println("NONE");
+        else System.out.printf(ticket.getAssignee().getUserName());
+        System.out.println("\nAvailable assignees: ");
+        for(Map.Entry<String, User> entry : userService.getAllUsers().entrySet())
+            System.out.println(entry.getKey() + " - " + entry.getValue().getUserName());
+        while(user == null) {
+            System.out.print("Enter login corresponding to Assignee: ");
+            user = userService.getUserByLogin(ReadHelper.readString());
+        }
+        System.out.println("Assignee is: " + user.getUserName());
+        ticket.setAssignee(user);
+    }
+
+    private void editStatus(Ticket ticket){
+        Status status = null;
+        Status currentStatus = ticket.getStatus();
+        System.out.println("Current status is: " + currentStatus);
+        if (currentStatus == Status.PLANNED)
+            System.out.print("You can switch to next available INWORK status. Confirm 'y' to switch: ");
+        else if (currentStatus == Status.INWORK)
+            System.out.print("You can switch to next available DONE status. Confirm 'y' to switch: ");
+        else {
+            System.out.println("You cannot change it !");
+            return;
+        }
+        String answer = ReadHelper.readString();
+        if (!answer.equalsIgnoreCase("y"))
+            return;
+        else{
+            switch (currentStatus) {
+                case PLANNED -> status = Status.INWORK;
+                case INWORK -> status = Status.DONE;
+            }
+            System.out.println("New status is: " + status);
+            ticket.setStatus(status);
+        }
+    }
+
+    private void editPriority(Ticket ticket) {
+        Priority priority = null;
+        System.out.println("Current priority is: " + ticket.getPriority());
+        while (priority == null) {
+            System.out.print("Choose one from available priorities: ");
+            for(Priority element : Priority.values())
+                System.out.print(element + "  ");
+            System.out.println();
+            priority = Priority.valueOf(ReadHelper.readString());
+        }
+        ticket.setPriority(priority);
+        System.out.println("New priority is: " + priority);
+    }
+
+    private void editTimeSpent(Ticket ticket){
+        int timeSpent = -1;
+        System.out.println("Current time spent is: " + ticket.getTimeSpent() + " hrs");
+        while (timeSpent < ticket.getTimeSpent()) {
+            System.out.println("Enter new value in hours: ");
+            timeSpent = ReadHelper.readNumber();
+        }
+        System.out.println("New time spent value: " + timeSpent);
+        ticket.setTimeSpent(timeSpent);
+        ticket.setTimeEstimated(ticket.getTotalTime() - timeSpent);
+    }
+
+    private void editTimeEstimated(Ticket ticket){
+        int timeEstimated = -1;
+        System.out.println("Current time estimated is: " + ticket.getTimeEstimated() + " hrs");
+        while (timeEstimated < 0) {
+            System.out.println("Enter new value in hours: ");
+            timeEstimated = ReadHelper.readNumber();
+        }
+        System.out.println("New time estimated value: " + timeEstimated);
+        ticket.setTimeEstimated(timeEstimated);
+        ticket.setTotalTime(ticket.getTotalTime() + timeEstimated);
     }
 }
