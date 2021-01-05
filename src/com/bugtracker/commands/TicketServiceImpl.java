@@ -4,8 +4,11 @@ import com.bugtracker.dao.TicketsDAO;
 import com.bugtracker.dao.TicketsDaoImpl;
 import com.bugtracker.model.Ticket;
 
+import com.bugtracker.dao.*;
+import com.bugtracker.model.Ticket;
 
-public class TicketServiceImpl implements TicketService{
+
+public class TicketServiceImpl implements TicketService {
     private final TicketsDAO ticketsDAO;
     public TicketServiceImpl(){
         ticketsDAO = TicketsDaoImpl.getInstance();
