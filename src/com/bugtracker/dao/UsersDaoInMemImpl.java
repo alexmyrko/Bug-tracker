@@ -4,18 +4,18 @@ import com.bugtracker.model.User;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UsersDaoImpl implements UsersDAO {
+public class UsersDaoInMemImpl implements UsersDAO {
     private Map<String, User> users = new HashMap<>();
-    private static UsersDaoImpl instance = null;
+    private static UsersDaoInMemImpl instance = null;
     private User curentUser;
 
-    private UsersDaoImpl() {
+    private UsersDaoInMemImpl() {
         this.initUsers();
     }
 
-    public static UsersDaoImpl getInstance() {
+    public static UsersDaoInMemImpl getInstance() {
         if (instance == null)
-            instance = new UsersDaoImpl();
+            instance = new UsersDaoInMemImpl();
         return instance;
     }
 
@@ -38,6 +38,14 @@ public class UsersDaoImpl implements UsersDAO {
     @Override
     public User getUserByLogin(String login) {
         return users.get(login);
+    }
+
+    public String getLoginByUser(User user){
+        for(Map.Entry<String, User> entry : users.entrySet()){
+            if (entry.getValue().getUserName().equals(user.getUserName()) && entry.getValue().getPassword().equals(user.getPassword()))
+                return entry.getKey();
+        }
+        return "";
     }
 
     @Override

@@ -13,6 +13,8 @@ public interface UsersDAO {
 
     User getUserByLogin(String login);
 
+    String getLoginByUser(User user);
+
     void setCurrentUser(User user);
 
     User getCurrentUser();

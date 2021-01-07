@@ -1,14 +1,19 @@
 package com.bugtracker.commands;
 
+import com.bugtracker.BugTracker;
+import com.bugtracker.dao.MemoryModel;
 import com.bugtracker.dao.UsersDAO;
-import com.bugtracker.dao.UsersDaoImpl;
+import com.bugtracker.dao.UsersDaoInMemImpl;
+import com.bugtracker.dao.UsersDaoSQLImpl;
 import com.bugtracker.model.User;
 import java.util.Map;
 
 public class UserServiceImpl implements UserService{
-    UsersDAO usersDAO;
-    public UserServiceImpl(){
-        usersDAO = UsersDaoImpl.getInstance();
+    private UsersDAO usersDAO;
+    public UserServiceImpl() {
+        if (BugTracker.getMemoryModel() == MemoryModel.INMEM)
+            usersDAO = UsersDaoInMemImpl.getInstance();
+        else usersDAO = UsersDaoSQLImpl.getInstance();
     }
 
     @Override
@@ -23,5 +28,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getCurrentUser() {
+        return usersDAO.getCurrentUser();
+    }
+
+    @Override
+    public void setCurrentUser(User user) {
+        usersDAO.setCurrentUser(user);
+    }
+
+    @Override
+    public void addUser(String login, User user) {
+        usersDAO.addUser(login, user);
     }
 }

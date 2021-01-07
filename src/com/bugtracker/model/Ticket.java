@@ -6,14 +6,16 @@ import java.time.LocalDateTime;
 public class Ticket {
     private int id;
     private String description;
-    private User assignee;
     private User reporter;
+    private User assignee;
     private Status status;
     private Priority priority;
     private int timeSpent = 0;
     private int timeEstimated;
-    private int totalTime;
     private LocalDateTime creationDate;
+
+    public Ticket() {
+    }
 
     public Ticket(String description, User assignee, User reporter, Status status, Priority priority, int timeEstimated) {
         this.description = description;
@@ -23,11 +25,19 @@ public class Ticket {
         this.priority = priority;
         this.timeEstimated = timeEstimated;
         creationDate = LocalDateTime.now();
-        totalTime = timeEstimated;
     }
 
-    public Ticket() {
-        creationDate = LocalDateTime.now();
+    public Ticket(int id, String description, User reporter, User assignee, Status status, Priority priority, int timeSpent,
+                  int timeEstimated, LocalDateTime creationDate) {
+        this.id = id;
+        this.description = description;
+        this.reporter = reporter;
+        this.assignee = assignee;
+        this.status = status;
+        this.priority = priority;
+        this.timeSpent = timeSpent;
+        this.timeEstimated = timeEstimated;
+        this.creationDate = creationDate;
     }
 
     public int getId() {
@@ -62,10 +72,6 @@ public class Ticket {
         return timeEstimated;
     }
 
-    public int getTotalTime() {
-        return totalTime;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -98,17 +104,13 @@ public class Ticket {
         this.timeEstimated = timeEstimated;
     }
 
-    public void setTotalTime(int totalTime) {
-        this.totalTime = totalTime;
-    }
-
     @Override
     public String toString() {
         return "Ticket{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", assignee=" + assignee.getUserName() +
                 ", reporter=" + reporter.getUserName() +
+                ", assignee=" + assignee.getUserName() +
                 ", status=" + status +
                 ", priority=" + priority +
                 ", timeSpent=" + timeSpent +

@@ -2,18 +2,19 @@ package com.bugtracker.commands;
 
 import com.bugtracker.ReadHelper;
 import com.bugtracker.dao.UsersDAO;
-import com.bugtracker.dao.UsersDaoImpl;
+import com.bugtracker.dao.UsersDaoInMemImpl;
+import com.bugtracker.dao.UsersDaoSQLImpl;
 import com.bugtracker.model.User;
 
 public class RegisterImpl implements Login {
     private static User newUser;
-    private final UsersDAO usersDAO;
+    UserService userService;
     String newLogin = "";
     String newPassword = "";
     String newUserName = "";
 
     public RegisterImpl() {
-        usersDAO = UsersDaoImpl.getInstance();
+        userService = new UserServiceImpl();
     }
 
     @Override
@@ -22,7 +23,7 @@ public class RegisterImpl implements Login {
         do {
             System.out.print("Please, enter your login: ");
             newLogin = ReadHelper.readString();
-            existedUser = usersDAO.getAllUsers().get(newLogin);
+            existedUser = userService.getAllUsers().get(newLogin);
             if (existedUser != null) {
                 System.out.println("This username have been existed. Please, enter another one!");
             }
@@ -40,8 +41,8 @@ public class RegisterImpl implements Login {
             newUserName = ReadHelper.readString();
         } while (newUserName.isEmpty() || newUserName.length() < 3);
         newUser = new User(newLogin, newPassword);
-        usersDAO.addUser(newLogin, newUser);
-        usersDAO.setCurrentUser(newUser);
+        userService.addUser(newLogin, newUser);
+        userService.setCurrentUser(newUser);
         return newUser;
     }
 }

@@ -1,17 +1,18 @@
 package com.bugtracker.commands;
 
+import com.bugtracker.BugTracker;
+import com.bugtracker.dao.MemoryModel;
 import com.bugtracker.dao.TicketsDAO;
-import com.bugtracker.dao.TicketsDaoImpl;
+import com.bugtracker.dao.TicketsDaoInMemImpl;
+import com.bugtracker.dao.TicketsDaoSQLImpl;
 import com.bugtracker.model.Ticket;
-
-import com.bugtracker.dao.*;
-import com.bugtracker.model.Ticket;
-
 
 public class TicketServiceImpl implements TicketService {
     private final TicketsDAO ticketsDAO;
     public TicketServiceImpl(){
-        ticketsDAO = TicketsDaoImpl.getInstance();
+        if (BugTracker.getMemoryModel() == MemoryModel.INMEM)
+            ticketsDAO = TicketsDaoInMemImpl.getInstance();
+        else ticketsDAO = TicketsDaoSQLImpl.getInstance();
     }
 
     @Override
@@ -19,15 +20,8 @@ public class TicketServiceImpl implements TicketService {
         ticketsDAO.addTicket(ticket);
     }
 
-
-    @Override
-    public void print() {
-
-    }
-
     public Ticket getTicketByID(int id){
         return ticketsDAO.getTicketByID(id);
     }
-
 
 }
