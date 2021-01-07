@@ -1,14 +1,12 @@
 package com.bugtracker;
 
 import com.bugtracker.view.View;
-import java.io.IOException;
 
 public class BugTracker {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         View view = new View();
         view.login();
         view.routine();
     }
-
 }

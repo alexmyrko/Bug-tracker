@@ -13,7 +13,7 @@ public class Ticket {
     private int timeSpent = 0;
     private int timeEstimated;
     private int totalTime;
-    private LocalDateTime creationDate;
+    private final LocalDateTime creationDate;
 
     public Ticket(String description, User assignee, User reporter, Status status, Priority priority, int timeEstimated) {
         this.description = description;
