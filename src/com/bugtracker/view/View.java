@@ -8,6 +8,8 @@ import com.bugtracker.model.Ticket;
 import com.bugtracker.model.Priority;
 import com.bugtracker.model.Status;
 import com.bugtracker.model.User;
+
+import java.util.ArrayList;
 import java.util.Map;
 
 public class View {
