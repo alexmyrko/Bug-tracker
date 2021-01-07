@@ -8,6 +8,7 @@ import com.bugtracker.model.Priority;
 import com.bugtracker.model.Status;
 import com.bugtracker.model.User;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class View {
@@ -39,7 +40,9 @@ public class View {
     }
 
     public void routine() {
+        ArrayList<Ticket> assigneeTickets;
         while (true) {
+
             Operation operation = Operation.getRoutineOperationByOrdinal();
             switch (operation) {
                 case CREATE -> ticketService.create(createTicket());
@@ -54,7 +57,14 @@ public class View {
                             break;
                         } else {
                             user = userService.getUserByLogin(loginName);
-                            ticketService.printByAssigneeUser(user);
+                            if (user != null) {
+                                assigneeTickets = ticketService.getTicketsByAssignee(user);
+                                for (Ticket ticket : assigneeTickets) {
+                                    System.out.println(ticket);
+                                }
+                            } else {
+                                System.out.println("This assignee isn`t existed");
+                            }
                         }
                     } while (user == null);
                 }
@@ -77,8 +87,8 @@ public class View {
         if (assigneeUser != null) {
             ticket.setAssignee(assigneeUser);
         } else {
-            ticket.setAssignee(null);
-            System.out.println("This assignee doesn't exist. You can add it later.");
+            ticket.setAssignee(userService.getCurrentUser());
+            System.out.println("This assignee doesn't exist. Assignee was changed to current user. You can change it later.");
         }
 
         ticket.setStatus(Status.PLANNED);
