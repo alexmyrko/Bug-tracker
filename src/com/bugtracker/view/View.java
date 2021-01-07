@@ -51,7 +51,18 @@ public class View {
                 case CREATE -> ticketService.create(createTicket());
                 case EDIT -> editTicket();
                 case VIEW -> {
-                    System.out.println("Press Enter button to print all tickets or enter login to print certain user tickets:");
+                    User user;
+                    do {
+                        System.out.println("Press \"Enter\" button to print all tickets or enter login to print assignee user tickets:");
+                        String loginName = ReadHelper.readString();
+                        if (loginName.isEmpty()) {
+                            ticketService.printAll();
+                            break;
+                        } else {
+                            user = userService.getUserByLogin(loginName);
+                            ticketService.printByAssigneeUser(user);
+                        }
+                    } while (user == null);
                 }
                 case EXIT -> System.exit(0);
             }
@@ -105,17 +116,17 @@ public class View {
     public void editTicket() {
         Ticket ticket = null;
         int ticketOperation = 0;
-        while(ticket == null) {
+        while (ticket == null) {
             System.out.println("Enter ticket ID, which should be edited: ");
             int id = ReadHelper.readNumber();
             ticket = ticketService.getTicketByID(id);
         }
-        while(true) {
+        while (true) {
             System.out.println(ticket.toString());
             System.out.println("Choose ticket field to modify: \n1 - Description\n2 - Assignee\n3 - Status\n4 - Priority\n" +
                     "5 - Time Spent\n6 - Time estimated\n7 - Exit to main menu");
             ticketOperation = ReadHelper.readNumber();
-            switch (ticketOperation){
+            switch (ticketOperation) {
                 case 1 -> editDescription(ticket);
                 case 2 -> editAssignee(ticket);
                 case 3 -> editStatus(ticket);
@@ -126,21 +137,22 @@ public class View {
             }
         }
     }
-    private void editDescription(Ticket ticket){
+
+    private void editDescription(Ticket ticket) {
         System.out.println("Current description: " + ticket.getDescription() + "\nEnter new description:");
         ticket.setDescription(ReadHelper.readString());
     }
 
-    private void editAssignee(Ticket ticket){
+    private void editAssignee(Ticket ticket) {
         User user = null;
         System.out.print("Current assignee: ");
         if (ticket.getAssignee() == null)
             System.out.println("NONE");
         else System.out.printf(ticket.getAssignee().getUserName());
         System.out.println("\nAvailable assignees: ");
-        for(Map.Entry<String, User> entry : userService.getAllUsers().entrySet())
+        for (Map.Entry<String, User> entry : userService.getAllUsers().entrySet())
             System.out.println(entry.getKey() + " - " + entry.getValue().getUserName());
-        while(user == null) {
+        while (user == null) {
             System.out.print("Enter login corresponding to Assignee: ");
             user = userService.getUserByLogin(ReadHelper.readString());
         }
@@ -148,7 +160,7 @@ public class View {
         ticket.setAssignee(user);
     }
 
-    private void editStatus(Ticket ticket){
+    private void editStatus(Ticket ticket) {
         Status status = null;
         Status currentStatus = ticket.getStatus();
         System.out.println("Current status is: " + currentStatus);
@@ -178,7 +190,7 @@ public class View {
         System.out.println("Current priority is: " + ticket.getPriority());
         while (priority == null) {
             System.out.print("Choose one from available priorities: ");
-            for(Priority element : Priority.values())
+            for (Priority element : Priority.values())
                 System.out.print(element + "  ");
             System.out.println();
             priority = Priority.valueOf(ReadHelper.readString());
@@ -187,7 +199,7 @@ public class View {
         System.out.println("New priority is: " + priority);
     }
 
-    private void editTimeSpent(Ticket ticket){
+    private void editTimeSpent(Ticket ticket) {
         int timeSpent = -1;
         System.out.println("Current time spent is: " + ticket.getTimeSpent() + " hrs");
         while (timeSpent < ticket.getTimeSpent()) {
@@ -200,7 +212,7 @@ public class View {
         ticket.setTimeEstimated(totalTime - timeSpent);
     }
 
-    private void editTimeEstimated(Ticket ticket){
+    private void editTimeEstimated(Ticket ticket) {
         int timeEstimated = -1;
         System.out.println("Current time estimated is: " + ticket.getTimeEstimated() + " hrs");
         while (timeEstimated < 0) {
@@ -210,6 +222,4 @@ public class View {
         System.out.println("New time estimated value: " + timeEstimated);
         ticket.setTimeEstimated(timeEstimated);
     }
-
-
 }
