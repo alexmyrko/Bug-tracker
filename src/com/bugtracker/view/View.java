@@ -45,7 +45,9 @@ public class View {
     }
 
     public void routine() {
+        ArrayList<Ticket> assigneeTickets;
         while (true) {
+
             Operation operation = Operation.getRoutineOperationByOrdinal();
             switch (operation) {
                 case CREATE -> ticketService.create(createTicket());
@@ -60,7 +62,14 @@ public class View {
                             break;
                         } else {
                             user = userService.getUserByLogin(loginName);
-                            ticketService.printByAssigneeUser(user);
+                            if (user != null) {
+                                assigneeTickets = ticketService.getTicketsByAssignee(user);
+                                for (Ticket ticket : assigneeTickets) {
+                                    System.out.println(ticket);
+                                }
+                            } else {
+                                System.out.println("This assignee isn`t existed");
+                            }
                         }
                     } while (user == null);
                 }
