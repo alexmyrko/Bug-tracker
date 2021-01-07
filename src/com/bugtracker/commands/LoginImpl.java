@@ -7,6 +7,10 @@ public class LoginImpl implements Login {
     UserService userService;
     public LoginImpl(){
         userService = new UserServiceImpl();
+    private final UserService userService;
+
+    public LoginImpl() {
+        userService = new UserServiceImpl();
     }
 
     @Override
@@ -19,7 +23,6 @@ public class LoginImpl implements Login {
         if (currentUser != null && currentUser.getPassword().equals(password)) {
             userService.setCurrentUser(currentUser);
             return currentUser;
-        }
-        else return null;
+        } else return null;
     }
 }

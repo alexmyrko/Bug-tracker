@@ -83,8 +83,8 @@ public class View {
         if (assigneeUser != null) {
             ticket.setAssignee(assigneeUser);
         } else {
-            ticket.setAssignee(null);
-            System.out.println("This assignee doesn't exist. You can add it later.");
+            ticket.setAssignee(userService.getCurrentUser());
+            System.out.println("This assignee doesn't exist. Assignee was changed to current user. You can change it later.");
         }
 
         ticket.setStatus(Status.PLANNED);

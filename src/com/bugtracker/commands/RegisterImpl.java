@@ -1,14 +1,11 @@
 package com.bugtracker.commands;
 
 import com.bugtracker.ReadHelper;
-import com.bugtracker.dao.UsersDAO;
-import com.bugtracker.dao.UsersDaoInMemImpl;
-import com.bugtracker.dao.UsersDaoSQLImpl;
 import com.bugtracker.model.User;
 
 public class RegisterImpl implements Login {
     private static User newUser;
-    private UserService userService;
+    private final UserService userService;
     String newLogin = "";
     String newPassword = "";
     String newUserName = "";
