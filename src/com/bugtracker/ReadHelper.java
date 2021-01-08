@@ -27,14 +27,4 @@ public class ReadHelper {
             }
         }
     }
-
-
-    // Should receive from console decimal id number, check and return ticket if id exist
-    public int chooseTicketId(){
-        int ticketId = 0;
-
-
-        return ticketId;
-    }
-
 }

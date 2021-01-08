@@ -7,7 +7,7 @@ import java.util.Map;
 public class UsersDaoImpl implements UsersDAO {
     private Map<String, User> users = new HashMap<>();
     private static UsersDaoImpl instance = null;
-    private User curentUser;
+    private User currentUser;
 
     private UsersDaoImpl() {
         this.initUsers();
@@ -42,12 +42,12 @@ public class UsersDaoImpl implements UsersDAO {
 
     @Override
     public void setCurrentUser(User user) {
-        curentUser = user;
+        currentUser = user;
     }
 
     @Override
     public User getCurrentUser() {
-        return curentUser;
+        return currentUser;
     }
 
 }

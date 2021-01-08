@@ -1,7 +1,6 @@
 package com.bugtracker.dao;
 
 import com.bugtracker.model.Ticket;
-import com.bugtracker.model.User;
 
 import java.util.Map;
 
