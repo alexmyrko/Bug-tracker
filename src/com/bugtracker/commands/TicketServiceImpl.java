@@ -3,14 +3,15 @@ package com.bugtracker.commands;
 import com.bugtracker.dao.TicketsDAO;
 import com.bugtracker.dao.TicketsDaoImpl;
 import com.bugtracker.model.Ticket;
+import com.bugtracker.model.User;
 
-import com.bugtracker.dao.*;
-import com.bugtracker.model.Ticket;
-
+import java.util.ArrayList;
+import java.util.Map;
 
 public class TicketServiceImpl implements TicketService {
     private final TicketsDAO ticketsDAO;
-    public TicketServiceImpl(){
+
+    public TicketServiceImpl() {
         ticketsDAO = TicketsDaoImpl.getInstance();
     }
 
@@ -19,15 +20,32 @@ public class TicketServiceImpl implements TicketService {
         ticketsDAO.addTicket(ticket);
     }
 
-
     @Override
-    public void print() {
-
+    public void printAll() {
+        Map<Integer, Ticket> allTickets = ticketsDAO.getAllTickets();
+        for (Map.Entry<Integer, Ticket> entry : allTickets.entrySet()) {
+            Ticket ticket = entry.getValue();
+            System.out.println(ticket);
+        }
     }
 
-    public Ticket getTicketByID(int id){
+    public Ticket getTicketByID(int id) {
         return ticketsDAO.getTicketByID(id);
     }
 
-
+    @Override
+    public ArrayList<Ticket> getTicketsByAssignee(User user) {
+        ArrayList<Ticket> assigneeTickets = new ArrayList<>();
+        Map<Integer, Ticket> allTickets = ticketsDAO.getAllTickets();
+        if (user != null) {
+            for (Map.Entry<Integer, Ticket> entry : allTickets.entrySet()) {
+                Ticket ticket = entry.getValue();
+                User assignee = ticket.getAssignee();
+                if (user.equals(assignee)) {
+                    assigneeTickets.add(ticket);
+                }
+            }
+        }
+        return assigneeTickets;
+    }
 }
