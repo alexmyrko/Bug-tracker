@@ -2,7 +2,7 @@ package com.bugtracker.view;
 
 import com.bugtracker.Operation;
 import com.bugtracker.ReadHelper;
-import com.bugtracker.commands.*;
+import com.bugtracker.service.*;
 import com.bugtracker.dao.MemoryModel;
 import com.bugtracker.model.Ticket;
 import com.bugtracker.model.Priority;
@@ -58,7 +58,7 @@ public class View {
                 case VIEW -> {
                     User user;
                     do {
-                        System.out.println("Press \"Enter\" button to print all tickets or enter login to print assignee user tickets:");
+                        System.out.println("Press \"Enter\" button to print all tickets:");
                         String loginName = ReadHelper.readString();
                         if (loginName.isEmpty()) {
                             ticketService.printAll();
@@ -66,7 +66,7 @@ public class View {
                         } else {
                             user = userService.getUserByLogin(loginName);
                             if (user != null) {
-                                assigneeTickets = ticketService.getTicketsByAssignee(user);
+                                assigneeTickets = ticketService.getTicketsByAssignee(userService.getUserByLogin(loginName));
                                 for (Ticket ticket : assigneeTickets) {
                                     System.out.println(ticket);
                                 }
@@ -76,7 +76,9 @@ public class View {
                         }
                     } while (user == null);
                 }
-                case EXIT -> System.exit(0);
+                case EXIT -> {
+                    return;
+                }
             }
         }
     }
@@ -115,7 +117,7 @@ public class View {
 
         System.out.println("\nSet estimated time (hours):");
         int estimatedTime = ReadHelper.readNumber();
-        if (estimatedTime != 0) {
+        if (estimatedTime > 0) {
             ticket.setTimeEstimated(estimatedTime);
         } else {
             System.out.println("You can add estimated time later.");

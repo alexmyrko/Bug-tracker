@@ -1,10 +1,7 @@
-package com.bugtracker.commands;
+package com.bugtracker.service;
 
 import com.bugtracker.BugTracker;
-import com.bugtracker.dao.MemoryModel;
-import com.bugtracker.dao.TicketsDAO;
-import com.bugtracker.dao.TicketsDaoInMemImpl;
-import com.bugtracker.dao.TicketsDaoSQLImpl;
+import com.bugtracker.dao.*;
 import com.bugtracker.model.Ticket;
 import com.bugtracker.model.User;
 
@@ -13,11 +10,18 @@ import java.util.Map;
 
 public class TicketServiceImpl implements TicketService {
     private final TicketsDAO ticketsDAO;
-    public TicketServiceImpl(){
-        if (BugTracker.getMemoryModel() == MemoryModel.INMEM)
+    private final UsersDAO usersDAO;
+    public TicketServiceImpl() {
+        if (BugTracker.getMemoryModel() == MemoryModel.INMEM) {
             ticketsDAO = TicketsDaoInMemImpl.getInstance();
-        else ticketsDAO = TicketsDaoSQLImpl.getInstance();
-    }
+            usersDAO = UsersDaoInMemImpl.getInstance();
+        }
+        else{
+                ticketsDAO = TicketsDaoSQLImpl.getInstance();
+                usersDAO = UsersDaoSQLImpl.getInstance();
+            }
+
+        }
 
     @Override
     public void create(Ticket ticket) {
@@ -45,7 +49,8 @@ public class TicketServiceImpl implements TicketService {
             for (Map.Entry<Integer, Ticket> entry : allTickets.entrySet()) {
                 Ticket ticket = entry.getValue();
                 User assignee = ticket.getAssignee();
-                if (user.equals(assignee)) {
+
+                if (user == assignee) {
                     assigneeTickets.add(ticket);
                 }
             }

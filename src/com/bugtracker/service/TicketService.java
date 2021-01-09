@@ -1,10 +1,6 @@
-package com.bugtracker.commands;
+package com.bugtracker.service;
 
 import com.bugtracker.model.Ticket;
-import com.bugtracker.model.User;
-import java.util.ArrayList;
-
-import java.util.Map;
 import com.bugtracker.model.User;
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.bugtracker.commands;
+package com.bugtracker.service;
 
 import com.bugtracker.BugTracker;
 import com.bugtracker.dao.MemoryModel;

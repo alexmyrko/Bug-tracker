@@ -29,6 +29,7 @@ public class UsersDaoSQLImpl implements UsersDAO{
                 "login varchar(16) NOT NULL,\n" +
                 "username varchar(40) NOT NULL,\n" +
                 "pass varchar(16) NOT NULL);";
+
         String initTable = "INSERT INTO users VALUES ('alex','Alexander Myrko','cursor1'),('max','Maksym Protsenko','cursor2')," +
                 "('andrew','Andriy Farenyuk','cursor3'),('ivan','Ivan Hodachiy','cursor4')";
 

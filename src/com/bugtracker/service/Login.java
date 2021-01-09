@@ -1,4 +1,4 @@
-package com.bugtracker.commands;
+package com.bugtracker.service;
 
 import com.bugtracker.model.User;
 
