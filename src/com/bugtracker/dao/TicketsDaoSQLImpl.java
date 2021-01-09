@@ -35,8 +35,7 @@ public class TicketsDaoSQLImpl implements TicketsDAO{
 
     @Override
     public void initTickets() {
-        String drop = "DROP TABLE IF EXISTS tickets\n";
-        String createTable = "CREATE TABLE tickets (\n" +
+        String createTable = "CREATE TABLE IF NOT EXISTS tickets (\n" +
                 "id int NOT NULL AUTO_INCREMENT,\n" +
                 "description varchar(200) NOT NULL,\n" +
                 "reporter varchar(16) NOT NULL,\n" +
@@ -50,18 +49,18 @@ public class TicketsDaoSQLImpl implements TicketsDAO{
         LocalDateTime currentDateTime = LocalDateTime.now();
         String date = currentDateTime.format(dateTimeFormatter);
 
-        String[] tickets = {"INSERT INTO tickets VALUES (1,'Creating project structure','alex','alex','PLANNED','MEDIUM',0,36,'" + date + "')",
-                "INSERT INTO tickets VALUES (2,'Implementing Register class','alex','max','PLANNED','MEDIUM',0,24,'" + date + "')",
-                "INSERT INTO tickets VALUES (3,'Implementing Ticket class','max','andrew','PLANNED','LOW',0,18,'" + date + "')",
-                "INSERT INTO tickets VALUES (4,'Implementing User class','alex','ivan','PLANNED','LOW',0,20,'" + date + "')"};
+        String initTable = "INSERT INTO tickets VALUES (1,'Creating project structure','alex','alex','PLANNED','MEDIUM',0,36,'" + date + "')," +
+                "(2,'Implementing Register class','alex','max','PLANNED','MEDIUM',0,24,'" + date + "')," +
+                "(3,'Implementing Ticket class','max','andrew','PLANNED','LOW',0,18,'" + date + "')," +
+                "(4,'Implementing User class','alex','ivan','PLANNED','LOW',0,20,'" + date + "')";
+
+
         try {
             Statement statement = connection.createStatement();
             statement.getConnection();
-            statement.executeUpdate(drop);
             statement.executeUpdate(createTable);
-            for (int i = 0; i < tickets.length; i++){
-                statement.execute(tickets[i]);
-            }
+            if (!getResultSet("SELECT * FROM tickets").next())
+                statement.executeUpdate(initTable);
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -81,7 +80,7 @@ public class TicketsDaoSQLImpl implements TicketsDAO{
                 Priority priority = Priority.valueOf(resultSet.getString("priority"));
                 int timeSpent = resultSet.getInt("timeSpent");
                 int timeEstimated = resultSet.getInt("timeEstimated");
-                LocalDateTime dateTime = LocalDateTime.parse(resultSet.getString("creationDate"), dateTimeFormatter);
+                LocalDateTime dateTime = resultSet.getObject("creationDate", LocalDateTime.class);
                 Ticket ticket = new Ticket(id, description, reporter, assignee, status, priority, timeSpent, timeEstimated, dateTime);
                 ticketsMap.put(id, ticket);
             }

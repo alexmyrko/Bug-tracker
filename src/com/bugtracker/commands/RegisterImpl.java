@@ -8,7 +8,7 @@ import com.bugtracker.model.User;
 
 public class RegisterImpl implements Login {
     private static User newUser;
-    UserService userService;
+    private UserService userService;
     String newLogin = "";
     String newPassword = "";
     String newUserName = "";

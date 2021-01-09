@@ -25,25 +25,21 @@ public class UsersDaoSQLImpl implements UsersDAO{
 
     @Override
     public void initUsers() {
-        String drop = "DROP TABLE IF EXISTS users\n";
-        String createTable = "CREATE TABLE users (\n" +
+        String createTable = "CREATE TABLE IF NOT EXISTS users (\n" +
                 "login varchar(16) NOT NULL,\n" +
                 "username varchar(40) NOT NULL,\n" +
-                "pass varchar(16) NOT NULL)";
-        String[] users = {"INSERT INTO users VALUES ('alex','Alexander Myrko','cursor1')",
-                "INSERT INTO users VALUES ('max','Maksym Protsenko','cursor2')",
-                "INSERT INTO users VALUES ('andrew','Andriy Farenyuk','cursor3')",
-                "INSERT INTO users VALUES ('ivan','Ivan Hodachiy','cursor4')"};
+                "pass varchar(16) NOT NULL);";
+        String initTable = "INSERT INTO users VALUES ('alex','Alexander Myrko','cursor1'),('max','Maksym Protsenko','cursor2')," +
+                "('andrew','Andriy Farenyuk','cursor3'),('ivan','Ivan Hodachiy','cursor4')";
+
         System.out.println("Initialized !");
         try {
             Statement statement = connection.createStatement();
             statement.getConnection();
-            statement.executeUpdate(drop);
             statement.executeUpdate(createTable);
+            if (!getResultSet("SELECT * FROM users").next())
+                statement.executeUpdate(initTable);
             statement.clearBatch();
-            for (int i = 0; i < users.length; i++){
-                statement.execute(users[i]);
-            }
         }catch (SQLException e){
             e.printStackTrace();
         }
