@@ -94,7 +94,6 @@ public class UsersDaoSQLImpl implements UsersDAO{
     @Override
     public User getUserByLogin(String login) {
         User user = null;
-        System.out.println("SELECT * FROM users WHERE login = '" + login + "'");
         resultSet = getResultSet("SELECT * FROM users WHERE login = '" + login + "'");
         try {
             if (resultSet.next()) {

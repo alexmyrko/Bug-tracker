@@ -5,10 +5,6 @@ import com.bugtracker.model.User;
 
 public class LoginImpl implements Login {
     UserService userService;
-    public LoginImpl(){
-        userService = new UserServiceImpl();
-    private final UserService userService;
-
     public LoginImpl() {
         userService = new UserServiceImpl();
     }
