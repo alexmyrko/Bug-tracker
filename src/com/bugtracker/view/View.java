@@ -17,6 +17,7 @@ public class View {
     private final Login register;
     private final TicketService ticketService;
     private final UserService userService;
+
     public View() {
         login = new LoginImpl();
         register = new RegisterImpl();
@@ -144,7 +145,9 @@ public class View {
                 case 4 -> editPriority(ticket);
                 case 5 -> editTimeSpent(ticket);
                 case 6 -> editTimeEstimated(ticket);
-                case 7 -> {return;}
+                case 7 -> {
+                    return;
+                }
             }
         }
     }
@@ -186,7 +189,7 @@ public class View {
         String answer = ReadHelper.readString();
         if (!answer.equalsIgnoreCase("y"))
             return;
-        else{
+        else {
             switch (currentStatus) {
                 case PLANNED -> status = Status.INWORK;
                 case INWORK -> status = Status.DONE;
